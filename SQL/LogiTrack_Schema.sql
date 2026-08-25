@@ -38,3 +38,9 @@ CREATE TABLE Productos(
 	bodega_id int not null,
 	foreign key (bodega_id) references Bodegas(id)
 );
+
+CREATE TABLE Logs(
+	id int primary key auto_increment,
+	fecha date not null default (CURRENT_DATE),
+	mensaje varchar(255) not null
+);
