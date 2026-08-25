@@ -8,6 +8,7 @@ public class LogiTrackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LogiTrackApplication.class, args);
+		System.out.println("Api desplegada y corriendo.....................\n");
 	}
 
 }
