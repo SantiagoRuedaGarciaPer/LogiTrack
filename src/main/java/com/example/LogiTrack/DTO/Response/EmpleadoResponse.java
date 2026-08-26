@@ -1,4 +1,4 @@
-package DTO.Response;
+package com.example.LogiTrack.DTO.Response;
 
 public record EmpleadoResponse(
     Long id,

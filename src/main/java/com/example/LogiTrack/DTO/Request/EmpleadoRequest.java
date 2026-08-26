@@ -1,4 +1,4 @@
-package DTO.Request;
+package com.example.LogiTrack.DTO.Request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

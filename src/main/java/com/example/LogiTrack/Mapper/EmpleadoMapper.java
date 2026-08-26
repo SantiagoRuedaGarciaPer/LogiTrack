@@ -1,9 +1,11 @@
-package Mapper;
+package com.example.LogiTrack.Mapper;
 
-import DTO.Request.EmpleadoRequest;
-import DTO.Response.EmpleadoResponse;
-import Model.Empleado;
+import com.example.LogiTrack.DTO.Request.EmpleadoRequest;
+import com.example.LogiTrack.DTO.Response.EmpleadoResponse;
+import com.example.LogiTrack.Model.Empleado;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmpleadoMapper {
     public EmpleadoResponse entityToDto(Empleado empleado){
         if (empleado == null) return null;

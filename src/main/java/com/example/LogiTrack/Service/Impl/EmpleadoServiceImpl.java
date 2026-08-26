@@ -1,11 +1,11 @@
-package Service.Impl;
+package com.example.LogiTrack.Service.Impl;
 
-import DTO.Request.EmpleadoRequest;
-import DTO.Response.EmpleadoResponse;
-import Mapper.EmpleadoMapper;
-import Model.Empleado;
-import Repository.EmpleadoRepository;
-import Service.EmpleadoService;
+import com.example.LogiTrack.DTO.Request.EmpleadoRequest;
+import com.example.LogiTrack.DTO.Response.EmpleadoResponse;
+import com.example.LogiTrack.Mapper.EmpleadoMapper;
+import com.example.LogiTrack.Model.Empleado;
+import com.example.LogiTrack.Repository.EmpleadoRepository;
+import com.example.LogiTrack.Service.EmpleadoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

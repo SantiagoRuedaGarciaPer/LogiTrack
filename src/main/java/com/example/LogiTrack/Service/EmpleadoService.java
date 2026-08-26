@@ -1,7 +1,7 @@
-package Service;
+package com.example.LogiTrack.Service;
 
-import DTO.Request.EmpleadoRequest;
-import DTO.Response.EmpleadoResponse;
+import com.example.LogiTrack.DTO.Request.EmpleadoRequest;
+import com.example.LogiTrack.DTO.Response.EmpleadoResponse;
 
 import java.util.List;
 
