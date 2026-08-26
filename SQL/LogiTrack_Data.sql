@@ -2,11 +2,12 @@ USE LogiTrack;
 
 insert into Empleados(nombre, email, tipo_documento, documento, cargo)
 values
-('Admin', 'admin@admin.com', 'Cedula', 1099744304, 'Admin');
+('Admin', 'admind@admin.com', 'Cedula', 1099744303, 'Admin');
 
 insert into Usuarios(empleado_id, usuario, contrasenia)
 values
 (1, 'Admin', 'PasswordIsIncorrect');
+
 
 -- Triggers empleado
 create trigger Insercion_empleados
@@ -119,5 +120,3 @@ BEGIN
 	values
 	(CONCAT('Bodega eliminada ',old.id, ' ', old.nombre,'. Ubicada en ',old.ubicacion));
 END
-
-
