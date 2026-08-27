@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Size;
 public record UsuarioRequest (
 
         @NotNull(message = "El id del empleado no puede ser nulo")
-        @NotBlank(message = "El id del empleado no puede ser vacio")
         Long empleado_id,
 
         @NotNull(message = "El usuario no puede ser nulo")
