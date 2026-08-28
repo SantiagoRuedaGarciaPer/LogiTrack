@@ -2,6 +2,7 @@ package com.example.LogiTrack.DTO.Request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public record EmpleadoRequest(
@@ -28,6 +29,10 @@ public record EmpleadoRequest(
     @NotNull(message = "El cargo no puede ser nullo")
     @NotBlank(message = "El cargo no puede ser vacio")
     @Size(min = 4, max = 50, message = "El cargo debe tener entre 4 y 50 caracteres")
-    String cargo
-) {
+    String cargo,
+
+    @NotNull(message = "El id de la bodega no puede ser nulo")
+    @Positive(message = "El id de la bodega debe ser positivo")
+    Long bodegaId
+){
 }

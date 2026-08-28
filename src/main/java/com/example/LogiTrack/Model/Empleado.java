@@ -31,4 +31,7 @@ public class Empleado {
 
     @Column(nullable = false)
     private String cargo;
+
+    @Column(nullable = false, name = "bodega_id")
+    private Bodega bodega;
 }

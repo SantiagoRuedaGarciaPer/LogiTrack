@@ -24,7 +24,4 @@ public class Bodega {
 
     @Column(nullable = false)
     private Double capacidad;
-
-    @Column(nullable = false, unique = true, name = "id_encargado")
-    private Empleado empleado;
 }

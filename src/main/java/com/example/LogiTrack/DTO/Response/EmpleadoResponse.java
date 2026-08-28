@@ -6,6 +6,7 @@ public record EmpleadoResponse(
     String email,
     String tipoDocumento,
     String documento,
-    String cargo
+    String cargo,
+    BodegaResponse bodegaResponse
 ) {
 }
