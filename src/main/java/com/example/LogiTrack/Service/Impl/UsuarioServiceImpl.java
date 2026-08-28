@@ -2,10 +2,12 @@ package com.example.LogiTrack.Service.Impl;
 
 import com.example.LogiTrack.DTO.Request.UsuarioRequest;
 import com.example.LogiTrack.DTO.Response.UsuarioResponse;
+import com.example.LogiTrack.Mapper.BodegaMapper;
 import com.example.LogiTrack.Mapper.EmpleadoMapper;
 import com.example.LogiTrack.Mapper.UsuarioMapper;
 import com.example.LogiTrack.Model.Empleado;
 import com.example.LogiTrack.Model.Usuario;
+import com.example.LogiTrack.Repository.BodegaRepository;
 import com.example.LogiTrack.Repository.EmpleadoRepository;
 import com.example.LogiTrack.Repository.UsuarioRepository;
 import com.example.LogiTrack.Service.UsuarioService;
@@ -22,12 +24,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final EmpleadoMapper empleadoMapper;
     private final EmpleadoRepository empleadoRepository;
+    private final BodegaRepository bodegaRepository;
+    private final BodegaMapper bodegaMapper;
 
     @Override
     public UsuarioResponse guardar(UsuarioRequest dto) {
         Empleado empleado = empleadoRepository.findById(dto.empleado_id()).orElseThrow(()-> new RuntimeException("El empleado no se encontro"));
         Usuario usuario = usuarioMapper.dtoToEntity(dto, empleado);
-        return usuarioMapper.entityToDto(usuarioRepository.save(usuario), empleadoMapper.entityToDto(empleado));
+        return usuarioMapper.entityToDto(usuarioRepository.save(usuario), empleadoMapper.entityToDto(empleado, bodegaMapper.entityToDto(empleado.getBodega())));
     }
 
     @Override
@@ -35,7 +39,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioRepository.findAll().stream().map(
                 p->
                     usuarioMapper.entityToDto(p,
-                        empleadoMapper.entityToDto(p.getEmpleado()
+                        empleadoMapper.entityToDto(p.getEmpleado(), bodegaMapper.entityToDto(p.getEmpleado().getBodega())
                     )
                 )
         ).toList();
@@ -44,26 +48,26 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResponse buscar(Long id) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(()-> new RuntimeException("El usuario no existe"));
-        return usuarioMapper.entityToDto(usuario, empleadoMapper.entityToDto(usuario.getEmpleado()));
+        return usuarioMapper.entityToDto(usuario, empleadoMapper.entityToDto(usuario.getEmpleado(), bodegaMapper.entityToDto(usuario.getEmpleado().getBodega())));
     }
 
     @Override
     public UsuarioResponse buscarPorEmpleadoId(Long id) {
         Usuario usuario = usuarioRepository.findByEmpleadoId(id);
-        return usuarioMapper.entityToDto(usuario, empleadoMapper.entityToDto(usuario.getEmpleado()));
+        return usuarioMapper.entityToDto(usuario, empleadoMapper.entityToDto(usuario.getEmpleado(), bodegaMapper.entityToDto(usuario.getEmpleado().getBodega())));
     }
 
     @Override
     public UsuarioResponse buscarPorUsuario(String usuario) {
         Usuario user = usuarioRepository.findByUsuario(usuario);
-        return usuarioMapper.entityToDto(user, empleadoMapper.entityToDto(user.getEmpleado()));
+        return usuarioMapper.entityToDto(user, empleadoMapper.entityToDto(user.getEmpleado(), bodegaMapper.entityToDto(user.getEmpleado().getBodega())));
     }
 
     @Override
     public UsuarioResponse actualizar(UsuarioRequest dto, Long id) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(()-> new RuntimeException("El usuario a actualizar no existe"));
         usuarioMapper.updateDtoToEntity(usuario, dto, usuario.getEmpleado());
-        return usuarioMapper.entityToDto(usuarioRepository.save(usuario), empleadoMapper.entityToDto(usuario.getEmpleado()));
+        return usuarioMapper.entityToDto(usuarioRepository.save(usuario), empleadoMapper.entityToDto(usuario.getEmpleado(), bodegaMapper.entityToDto(usuario.getEmpleado().getBodega())));
     }
 
     @Override

@@ -32,6 +32,7 @@ public class Empleado {
     @Column(nullable = false)
     private String cargo;
 
-    @Column(nullable = false, name = "bodega_id")
+    @ManyToOne
+    @JoinColumn(name = "bodega_id", nullable = false)
     private Bodega bodega;
 }
