@@ -1,45 +1,60 @@
 # LogiTrack
 
-Sistema de gestión de inventario desarrollado con **Java y Spring Boot**, diseñado para administrar empleados, bodegas y productos mediante una API REST.
+Backend de un sistema de gestión de inventario desarrollado con **Java y Spring Boot**.
 
-El proyecto implementa una arquitectura basada en capas, utilizando Spring Boot, Spring Data JPA, MySQL y autenticación mediante JWT.
+El proyecto proporciona una API REST para administrar **empleados, bodegas, productos y usuarios**, además de implementar autenticación mediante **JWT** y persistencia de datos utilizando **MySQL**.
+
+---
 
 ## 🚀 Características
 
-El backend permite gestionar:
-
-* 🔐 Autenticación de usuarios mediante JWT.
-* 👤 Gestión de empleados.
+* 🔐 Autenticación mediante JWT.
+* 👤 Gestión de usuarios.
+* 👨‍💼 Gestión de empleados.
 * 🏢 Gestión de bodegas.
 * 📦 Gestión de productos.
 * 🔎 Búsqueda de empleados por diferentes criterios.
 * 🔎 Búsqueda de productos por ID y nombre.
 * 🔎 Búsqueda de bodegas por ID.
 * ✏️ Actualización de registros.
+* ➕ Creación de registros.
 * 🗑️ Eliminación de registros.
-* 🗄️ Persistencia de información utilizando MySQL.
-* 📋 Validación de datos mediante Jakarta Validation.
+* ✅ Validación de datos mediante Jakarta Validation.
+* 🔒 Protección de endpoints mediante Spring Security.
 * 📖 Documentación de la API mediante Swagger/OpenAPI.
+
+---
 
 ## 🛠️ Tecnologías utilizadas
 
-* Java
-* Spring Boot
-* Spring Web
-* Spring Data JPA
-* Spring Security
-* JWT
-* MySQL
-* Maven
-* Hibernate
-* Lombok
-* Jakarta Validation
-* Swagger / OpenAPI
+| Tecnología             | Uso                            |
+| ---------------------- | ------------------------------ |
+| **Java**               | Lenguaje principal             |
+| **Spring Boot**        | Framework backend              |
+| **Spring Web**         | Creación de la API REST        |
+| **Spring Data JPA**    | Persistencia de datos          |
+| **Hibernate**          | ORM                            |
+| **Spring Security**    | Seguridad y autenticación      |
+| **JWT**                | Autenticación mediante tokens  |
+| **MySQL**              | Base de datos                  |
+| **Maven**              | Gestión de dependencias        |
+| **Lombok**             | Reducción de código repetitivo |
+| **Jakarta Validation** | Validación de datos            |
+| **Swagger / OpenAPI**  | Documentación de la API        |
+
+---
 
 ## 📁 Estructura del proyecto
 
 ```text
 LogiTrack/
+│
+├── .mvn/
+│   └── wrapper/
+│
+├── SQL/
+│   └── Scripts de la base de datos
+│
 ├── src/
 │   └── main/
 │       ├── java/
@@ -58,33 +73,39 @@ LogiTrack/
 │       │
 │       └── resources/
 │
-├── SQL/
+├── .gitignore
 ├── pom.xml
 ├── mvnw
 └── mvnw.cmd
 ```
 
-## 🗄️ Base de datos
+El repositorio incluye el código fuente dentro de `src`, los scripts SQL dentro de `SQL` y el Maven Wrapper para facilitar la ejecución del proyecto.
 
-El proyecto utiliza **MySQL** como sistema gestor de base de datos.
+---
 
-Crear una base de datos llamada:
+# 🗄️ Base de datos
+
+El proyecto utiliza **MySQL** para almacenar la información del sistema.
+
+La base de datos utilizada es:
 
 ```sql
 CREATE DATABASE LogiTrack;
 ```
 
-El proyecto incluye los archivos SQL necesarios dentro de la carpeta:
+Los scripts necesarios para la creación y configuración de la base de datos se encuentran en:
 
 ```text
 SQL/
 ```
 
-Ejecuta los scripts SQL para crear las tablas y estructuras necesarias.
+Después de crear la base de datos, se deben ejecutar los scripts correspondientes.
 
-## ⚙️ Configuración
+---
 
-La conexión con MySQL se configura en:
+# ⚙️ Configuración
+
+La conexión con MySQL se configura mediante el archivo:
 
 ```text
 src/main/resources/application.properties
@@ -103,48 +124,74 @@ spring.jpa.hibernate.ddl-auto=none
 spring.jpa.show-sql=true
 ```
 
-Reemplaza:
+Debes reemplazar:
 
 ```text
 TU_USUARIO
 TU_CONTRASEÑA
 ```
 
-por las credenciales correspondientes a tu instalación de MySQL.
+por las credenciales de tu instalación de MySQL.
 
-> **Importante:** no subas contraseñas reales al repositorio. Se recomienda utilizar variables de entorno o un archivo de configuración local.
+> ⚠️ **Importante:** no se recomienda subir credenciales reales al repositorio. Para un entorno de producción se deben utilizar variables de entorno o un sistema de configuración seguro.
 
-## ▶️ Ejecución
+---
 
-### Requisitos
+# 📋 Requisitos
 
-Antes de ejecutar el proyecto debes tener instalado:
+Antes de ejecutar el proyecto necesitas tener instalado:
 
-* Java 17 o superior
-* MySQL
-* Maven (opcional, ya que el proyecto incluye Maven Wrapper)
+* **Java 17 o superior**
+* **MySQL**
+* **Git**
 
-### Ejecutar con Maven
+No es necesario instalar Maven si utilizas el Maven Wrapper incluido en el proyecto.
 
-Linux / macOS:
+---
+
+# ▶️ Instalación
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/SantiagoRuedaGarciaPer/LogiTrack.git
+```
+
+Entra al proyecto:
+
+```bash
+cd LogiTrack
+```
+
+Configura la conexión de MySQL en:
+
+```text
+src/main/resources/application.properties
+```
+
+Después ejecuta el proyecto.
+
+### Linux / macOS
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-Windows:
+### Windows
 
 ```bash
 mvnw.cmd spring-boot:run
 ```
 
-También puedes ejecutar el proyecto desde IntelliJ IDEA, Eclipse o Spring Tool Suite ejecutando la clase principal de Spring Boot.
+También puedes ejecutar el proyecto directamente desde IntelliJ IDEA, Eclipse o Spring Tool Suite.
 
-## 🔐 Autenticación
+---
 
-El sistema utiliza autenticación basada en **JSON Web Token (JWT)**.
+# 🔐 Autenticación
 
-Para iniciar sesión se realiza una petición:
+LogiTrack utiliza **JWT (JSON Web Token)** para proteger los endpoints de la API.
+
+Para iniciar sesión:
 
 ```http
 POST /LogiTrack/api/auth/login
@@ -154,12 +201,12 @@ Body:
 
 ```json
 {
-    "usuario": "usuario",
+    "usuario": "Kame",
     "contrasenia": "contraseña"
 }
 ```
 
-La API devuelve:
+Si las credenciales son correctas, la API devuelve:
 
 ```json
 {
@@ -167,341 +214,306 @@ La API devuelve:
 }
 ```
 
-El token debe enviarse posteriormente en las peticiones protegidas mediante:
+El token debe enviarse posteriormente en las peticiones protegidas mediante el header:
 
 ```http
 Authorization: Bearer TOKEN_JWT
 ```
 
-## 📌 Principales endpoints
+---
 
-### Autenticación
+# 📌 Endpoints principales
 
-```http
-POST /LogiTrack/api/auth/login
-```
-
-### Empleados
-
-```http
-GET    /LogiTrack/api/empleados
-GET    /LogiTrack/api/empleados/{id}
-GET    /LogiTrack/api/empleados/nombre/{nombre}
-GET    /LogiTrack/api/empleados/cargo/{cargo}
-GET    /LogiTrack/api/empleados/documento/{documento}
-
-POST   /LogiTrack/api/empleados
-PUT    /LogiTrack/api/empleados/{id}
-DELETE /LogiTrack/api/empleados/{id}
-```
-
-### Bodegas
-
-```http
-GET    /LogiTrack/api/bodegas/{id}
-POST   /LogiTrack/api/bodegas
-PUT    /LogiTrack/api/bodegas/{id}
-DELETE /LogiTrack/api/bodegas/{id}
-```
-
-### Productos
-
-```http
-GET    /LogiTrack/api/productos/{id}
-GET    /LogiTrack/api/productos/nombre/{nombre}
-
-POST   /LogiTrack/api/productos
-PUT    /LogiTrack/api/productos/{id}
-DELETE /LogiTrack/api/productos/{id}
-```
-
-## 📖 Swagger
-
-La API cuenta con documentación mediante Swagger/OpenAPI.
-
-Una vez iniciado el servidor, puedes acceder a la documentación desde la interfaz de Swagger configurada en el proyecto.
-
-## 🔗 Repositorio
-
-[LogiTrack Backend](https://github.com/SantiagoRuedaGarciaPer/LogiTrack)
-
-## 👨‍💻 Autor
-
-**Santiago Rueda Garcia**
-
-Proyecto desarrollado como sistema de gestión de inventario utilizando Spring Boot y MySQL.
-
-````
-
-## README para `LogiTrackWeb`
-
-Y este sería el README del frontend:
-
-# LogiTrack Web
-
-Frontend web para el sistema de gestión de inventario **LogiTrack**.
-
-La aplicación proporciona una interfaz sencilla para interactuar con la API REST desarrollada en Spring Boot, permitiendo administrar empleados, bodegas y productos.
-
-## 🚀 Características
-
-El frontend permite:
-
-- 🔐 Inicio de sesión.
-- 🔑 Autenticación mediante JWT.
-- 🏠 Página principal del sistema.
-- 👤 Visualización de información del usuario.
-- 👨‍💼 Gestión de empleados.
-- 🏢 Gestión de bodegas.
-- 📦 Gestión de productos.
-- 🔎 Búsqueda de registros.
-- ✏️ Actualización de información.
-- ➕ Creación de registros.
-- 🗑️ Eliminación de registros.
-- 🔒 Cierre de sesión.
-
-## 🛠️ Tecnologías utilizadas
-
-- HTML5
-- CSS3
-- JavaScript
-- Fetch API
-- LocalStorage
-- REST API
-- JWT
-
-El proyecto no utiliza frameworks frontend, por lo que la interfaz está construida utilizando HTML, CSS y JavaScript puro.
-
-## 📁 Estructura del proyecto
-
-```text
-LogiTrackWeb/
-│
-├── css/
-│   ├── login.css
-│   ├── home.css
-│   ├── empleados.css
-│   ├── bodegas.css
-│   └── productos.css
-│
-├── html/
-│   ├── home.html
-│   ├── empleados.html
-│   ├── bodegas.html
-│   └── productos.html
-│
-├── js/
-│   ├── login.js
-│   ├── home.js
-│   ├── empleados.js
-│   ├── bodegas.js
-│   └── productos.js
-│
-└── index.html
-````
-
-## 🔗 Backend
-
-El frontend se comunica con el backend de LogiTrack mediante peticiones HTTP.
-
-La URL utilizada durante el desarrollo es:
-
-```text
-http://localhost:8080/LogiTrack/api
-```
-
-Por ejemplo:
-
-```text
-http://localhost:8080/LogiTrack/api/empleados
-```
-
-El backend correspondiente se encuentra en:
-
-[LogiTrack Backend](https://github.com/SantiagoRuedaGarciaPer/LogiTrack)
-
-## 🔐 Inicio de sesión
-
-La aplicación comienza en:
-
-```text
-index.html
-```
-
-El usuario proporciona:
-
-```json
-{
-    "usuario": "usuario",
-    "contrasenia": "contraseña"
-}
-```
-
-El frontend realiza una petición al endpoint:
+## 🔑 Autenticación
 
 ```http
 POST /LogiTrack/api/auth/login
 ```
 
-La API devuelve un JWT:
+---
 
-```json
-{
-    "token": "TOKEN_JWT"
-}
-```
+## 👨‍💼 Empleados
 
-El token se almacena en `localStorage` y posteriormente se utiliza para realizar peticiones autenticadas:
+### Listar empleados
 
 ```http
-Authorization: Bearer TOKEN_JWT
+GET /LogiTrack/api/empleados
 ```
 
-## 🏠 Página principal
+### Buscar por ID
 
-Después de iniciar sesión, el usuario accede al Home.
-
-Desde esta página puede acceder a:
-
-* Empleados
-* Bodegas
-* Productos
-
-También puede:
-
-* Consultar su información personal.
-* Cerrar sesión.
-
-## 👨‍💼 Gestión de empleados
-
-La sección de empleados permite:
-
-* Listar todos los empleados.
-* Buscar por ID.
-* Buscar por nombre.
-* Buscar por cargo.
-* Buscar por documento.
-* Crear empleados.
-* Actualizar empleados.
-* Eliminar empleados.
-
-## 🏢 Gestión de bodegas
-
-La sección de bodegas permite:
-
-* Buscar una bodega por ID.
-* Crear bodegas.
-* Actualizar bodegas.
-* Eliminar bodegas.
-
-## 📦 Gestión de productos
-
-La sección de productos permite:
-
-* Buscar productos por ID.
-* Buscar productos por nombre.
-* Crear productos.
-* Actualizar productos.
-* Eliminar productos.
-
-## ▶️ Ejecución
-
-### Requisitos
-
-Necesitas:
-
-* Un navegador web moderno.
-* El backend de LogiTrack ejecutándose.
-* Un servidor local para servir los archivos HTML.
-
-Se recomienda utilizar **Live Server** en Visual Studio Code.
-
-### Ejecutar con Live Server
-
-1. Clona el repositorio:
-
-```bash
-git clone https://github.com/SantiagoRuedaGarciaPer/LogiTrackWeb.git
+```http
+GET /LogiTrack/api/empleados/{id}
 ```
 
-2. Abre la carpeta en Visual Studio Code.
+### Buscar por nombre
 
-3. Instala la extensión **Live Server**.
-
-4. Abre `index.html`.
-
-5. Selecciona **Open with Live Server**.
-
-El frontend normalmente estará disponible en una dirección similar a:
-
-```text
-http://127.0.0.1:5500
+```http
+GET /LogiTrack/api/empleados/nombre/{nombre}
 ```
 
-## ⚠️ Requisitos del backend
+### Buscar por cargo
 
-Antes de utilizar el frontend, asegúrate de que el backend esté ejecutándose en:
-
-```text
-http://localhost:8080
+```http
+GET /LogiTrack/api/empleados/cargo/{cargo}
 ```
 
-Además, el backend debe tener configurado CORS para permitir las peticiones provenientes del servidor donde se ejecuta el frontend.
+### Buscar por documento
 
-## 🔄 Comunicación Frontend - Backend
+```http
+GET /LogiTrack/api/empleados/documento/{documento}
+```
 
-La comunicación se realiza utilizando `fetch()`.
+### Crear empleado
+
+```http
+POST /LogiTrack/api/empleados
+```
 
 Ejemplo:
 
-```javascript
-const response = await fetch(
-    "http://localhost:8080/LogiTrack/api/empleados",
-    {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-    }
-);
+```json
+{
+    "nombre": "Santiago Rueda Garcia",
+    "email": "santirueda0917@gmail.com",
+    "tipoDocumento": "Cedula",
+    "documento": "1099744305",
+    "cargo": "Encargado",
+    "bodegaId": 1
+}
 ```
 
-## 🔒 Manejo de sesión
+### Actualizar empleado
 
-El JWT se almacena temporalmente en:
-
-```javascript
-localStorage
+```http
+PUT /LogiTrack/api/empleados/{id}
 ```
 
-Cuando el usuario cierra sesión, el token es eliminado:
+### Eliminar empleado
 
-```javascript
-localStorage.removeItem("token");
+```http
+DELETE /LogiTrack/api/empleados/{id}
 ```
 
-Si el usuario intenta acceder a una página protegida sin un token válido almacenado, es redirigido al inicio de sesión.
+---
 
-## 📌 Proyecto relacionado
+# 🏢 Bodegas
 
-Backend:
+### Buscar por ID
 
-[LogiTrack](https://github.com/SantiagoRuedaGarciaPer/LogiTrack)
+```http
+GET /LogiTrack/api/bodegas/{id}
+```
 
-Frontend:
+### Crear bodega
 
-[LogiTrackWeb](https://github.com/SantiagoRuedaGarciaPer/LogiTrackWeb)
+```http
+POST /LogiTrack/api/bodegas
+```
 
-## 👨‍💻 Autor
+Body:
+
+```json
+{
+    "nombre": "Bodega principal",
+    "ubicacion": "Calle 45 #23 -32",
+    "capacidad": 100.0
+}
+```
+
+### Actualizar bodega
+
+```http
+PUT /LogiTrack/api/bodegas/{id}
+```
+
+### Eliminar bodega
+
+```http
+DELETE /LogiTrack/api/bodegas/{id}
+```
+
+---
+
+# 📦 Productos
+
+### Buscar por ID
+
+```http
+GET /LogiTrack/api/productos/{id}
+```
+
+### Buscar por nombre
+
+```http
+GET /LogiTrack/api/productos/nombre/{nombre}
+```
+
+### Crear producto
+
+```http
+POST /LogiTrack/api/productos
+```
+
+Body:
+
+```json
+{
+    "nombre": "Televisor",
+    "descripcion": "Televisor para el inventario de la empresa",
+    "stock": 40,
+    "precioCompra": 2500.0,
+    "precioVenta": 30000.0,
+    "bodega": 1
+}
+```
+
+### Actualizar producto
+
+```http
+PUT /LogiTrack/api/productos/{id}
+```
+
+### Eliminar producto
+
+```http
+DELETE /LogiTrack/api/productos/{id}
+```
+
+---
+
+# 👤 Usuarios
+
+El sistema también permite consultar información de los usuarios registrados.
+
+La información del usuario está relacionada con un empleado y su respectiva bodega.
+
+Un usuario puede contener información como:
+
+```json
+{
+    "id": 2,
+    "empleado": {
+        "id": 2,
+        "nombre": "Santiago Rueda Garcia",
+        "email": "santirueda0917@gmail.com",
+        "tipoDocumento": "Cedula",
+        "documento": "123456789",
+        "cargo": "Encargado"
+    },
+    "usuario": "Kame"
+}
+```
+
+---
+
+# 📖 Swagger / OpenAPI
+
+El proyecto cuenta con documentación de la API mediante **Swagger/OpenAPI**.
+
+Una vez iniciado el servidor, se puede acceder a la interfaz de documentación de la API mediante la ruta configurada por Springdoc.
+
+Esto permite consultar los endpoints disponibles y realizar pruebas directamente desde el navegador.
+
+---
+
+# 🔄 Arquitectura
+
+El proyecto utiliza una arquitectura por capas:
+
+```text
+Controller
+    ↓
+Service
+    ↓
+Repository
+    ↓
+Database
+```
+
+Además, se utilizan DTOs para separar los datos recibidos y enviados por la API de las entidades utilizadas internamente.
+
+```text
+Request DTO
+     ↓
+ Controller
+     ↓
+ Service
+     ↓
+ Mapper
+     ↓
+ Entity
+     ↓
+ Repository
+     ↓
+ MySQL
+```
+
+Para las respuestas:
+
+```text
+MySQL
+   ↓
+Repository
+   ↓
+Service
+   ↓
+Mapper
+   ↓
+Response DTO
+   ↓
+Controller
+   ↓
+JSON
+```
+
+---
+
+# 🔒 Seguridad
+
+Los endpoints protegidos requieren un token JWT válido.
+
+El sistema utiliza:
+
+* Spring Security
+* JWT
+* Filtros de autenticación
+* CORS
+* Sesiones Stateless
+
+La autenticación no utiliza sesiones tradicionales del servidor; cada petición protegida debe proporcionar el token correspondiente.
+
+---
+
+# 🌐 Frontend
+
+El backend está diseñado para trabajar junto con el frontend web de LogiTrack.
+
+Repositorio del frontend:
+
+**LogiTrackWeb**
+
+```text
+https://github.com/SantiagoRuedaGarciaPer/LogiTrackWeb
+```
+
+El frontend consume los endpoints REST proporcionados por este proyecto.
+
+---
+
+# 👨‍💻 Autor
 
 **Santiago Rueda Garcia**
 
-Frontend desarrollado como interfaz web para el sistema de gestión de inventario LogiTrack.
+Proyecto desarrollado como sistema de gestión de inventario utilizando **Java, Spring Boot y MySQL**.
+
+---
+
+## 📄 Licencia
+
+Este proyecto fue desarrollado con fines educativos.
 
 ```
 
-Estos dos README quedan separados pero **se complementan**: el del backend documenta la API y configuración de Spring Boot/MySQL, mientras que el del frontend explica cómo levantar la interfaz y conectarla con la API. Además, los dos repositorios actualmente están públicos y el backend contiene `pom.xml`, `src` y `SQL`, mientras que el frontend está organizado en `css`, `html`, `js` e `index.html`.
-
-Si quieres que se vean **más profesionales para presentarlos en GitHub**, también puedo hacerte una segunda versión con **badges, tabla de contenidos, capturas, arquitectura del sistema y diagrama de funcionamiento**.
+Este ya está listo para **reemplazar el contenido de `README.md` del repositorio `LogiTrack`**.
 ```
