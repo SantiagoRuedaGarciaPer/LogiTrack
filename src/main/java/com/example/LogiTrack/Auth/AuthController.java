@@ -5,7 +5,6 @@ import com.example.LogiTrack.DTO.Response.UsuarioResponse;
 import com.example.LogiTrack.Exception.BuisnessRuleException;
 import com.example.LogiTrack.Service.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,18 +19,17 @@ public class AuthController {
 
     private final JwtService jwtService;
     private final UsuarioService usuarioService;
-    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody LoginRequest request) {
         UsuarioResponse usuario;
         try {
-            usuario = usuarioService.buscarPorUsuario(request.username());
+            usuario = usuarioService.buscarPorUsuario(request.usuario());
         } catch (Exception e) {
             throw new BuisnessRuleException("Credenciales inválidas");
         }
 
-        if (!passwordEncoder.matches(request.password(), usuario.contrasenia())) {
+        if (!request.contrasenia().equals(usuario.contrasenia())) {
             throw new BuisnessRuleException("Credenciales inválidas");
         }
 
